@@ -11,12 +11,16 @@ public class ValidateEquation {
 
         EvaluateResponse evaluateResponse = new EvaluateResponse();
 
+        //Si contiene uno de estos casos es un bad request
         if(request.getExp().contains("(")
                 || request.getExp().contains("(")
-                ||  "-".equals(request.getExp().charAt(0))
+                || request.getExp().charAt(0) == '-'
+                || request.getExp().contains("--")
+                || request.getExp().contains("+-")
+                || request.getExp().contains("-+")
         ){
             return 2;
-        }else{
+        }else{ //De lo contrario es un request valido
             return 1;
         }
     }

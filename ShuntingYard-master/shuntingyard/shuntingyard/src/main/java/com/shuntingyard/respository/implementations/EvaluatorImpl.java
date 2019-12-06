@@ -5,6 +5,7 @@ import com.shuntingyard.pojo.evaluate.response.EvaluateResponse;
 import com.shuntingyard.services.evaluate.interfaces.IEvaluator;
 import com.shuntingyard.utils.InfixToPostFix;
 import com.shuntingyard.utils.PostFixToResult;
+import org.springframework.core.env.Environment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,16 @@ import java.util.*;
 public class EvaluatorImpl implements IEvaluator {
 
     private Logger log;
+    private Environment env;
     private PostFixToResult postFixToResult;
     private InfixToPostFix infixToPostFix;
 
     public EvaluatorImpl(PostFixToResult postFixToResult,
-                         InfixToPostFix infixToPostFix
+                         InfixToPostFix infixToPostFix,
+                         Environment env
     ){
         this.postFixToResult = postFixToResult;
+        this.env = env;
         this.infixToPostFix = infixToPostFix;
         this.log =  LoggerFactory.getLogger(getClass());
     }
@@ -51,7 +55,7 @@ public class EvaluatorImpl implements IEvaluator {
 
         }catch (Exception e){
             log.error("EvaluatorImpl - Error: {}",e.getMessage());
-            evaluateResponse.setMessage(e.getMessage());
+            evaluateResponse.setMessage(env.getProperty("service.response.internal.error"));
             return evaluateResponse;
         }
     }
@@ -63,6 +67,7 @@ public class EvaluatorImpl implements IEvaluator {
         evaluateResponse.setInfix(infixExp);
         evaluateResponse.setPostfix(postfixExp);
         evaluateResponse.setResult(value);
+        evaluateResponse.setMessage("Success");
 
         return  evaluateResponse;
     }

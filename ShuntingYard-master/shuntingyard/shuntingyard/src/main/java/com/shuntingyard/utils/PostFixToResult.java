@@ -65,6 +65,8 @@ public class PostFixToResult {
                             pilaEvaluadora.push(auxPostFixQueue.poll().toString().charAt(0));
                             pilaEvaluadora.push(createDoubleNumber(pilaEvaluadora));
                             break;
+                        default:
+                            return 0;
                     }
                 }
             }

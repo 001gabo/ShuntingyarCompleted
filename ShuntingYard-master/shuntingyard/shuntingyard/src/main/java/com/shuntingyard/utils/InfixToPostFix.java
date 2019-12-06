@@ -42,8 +42,6 @@ public class InfixToPostFix {
                         auxPrecedence = precedence(characterAux); // / -> 2
                         actualPrecedence = precedence(ch); // + ->1
 
-                        precedenceResult = auxPrecedence + actualPrecedence;
-
                         if (auxPrecedence >= actualPrecedence) {
                             characterAux = pilaOperadores.pop().toString().charAt(0); //Sacando el elemento del tope de la pila
                             colaNumeros.offer(characterAux); //Metiendo el elemento sacado de la pila de operadores en la pila de numeros

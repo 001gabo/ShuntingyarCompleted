@@ -12,8 +12,12 @@ public class MockEnv implements Environment {
 
     public MockEnv() {
         env = new HashMap<>();
+
         env.put("service.url","/");
         env.put("service.url.endpoint.evaluate","evaluate");
+
+        env.put("service.response.bad.request","The expression {} is invalid");
+        env.put("service.response.internal.error","Some error ocurred while processing the expression");
     }
     @Override
     public String[] getActiveProfiles() {
@@ -41,8 +45,8 @@ public class MockEnv implements Environment {
     }
 
     @Override
-    public String getProperty(String s) {
-        return null;
+    public String getProperty(String key) {
+        return env.get(key);
     }
 
     @Override
